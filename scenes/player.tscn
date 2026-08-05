@@ -9,6 +9,12 @@
 [node name="Player" type="CharacterBody3D" unique_id=1258630573]
 script = ExtResource("1_g2els")
 speed = 4.0
+move_acceleration = 4.0
+friction = 8.0
+jump_strength = 15.0
+jump_height = 2.25
+jump_time_to_peak = 0.4
+jump_time_to_descent = 0.3
 
 [node name="Skin" parent="." unique_id=154830651 instance=ExtResource("1_3vyb7")]
 

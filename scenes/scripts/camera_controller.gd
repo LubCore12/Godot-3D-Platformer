@@ -1,3 +1,4 @@
+class_name CameraController
 extends Node3D
 
 @export_group("Camera Movement")
