@@ -37,9 +37,6 @@ mesh = SubResource("BoxMesh_37okk")
 [node name="FloorShape" type="CollisionShape3D" parent="Floor" unique_id=972972448]
 shape = SubResource("BoxShape3D_8cj0n")
 
-[node name="Camera" type="Camera3D" parent="." unique_id=1975760001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.447954, 17.462225)
-
 [node name="Characters" type="Node3D" parent="." unique_id=1193628485]
 
 [node name="Player" parent="Characters" unique_id=1258630573 instance=ExtResource("1_uwrxv")]

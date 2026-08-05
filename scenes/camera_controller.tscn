@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d0emlwpf2jmeb"]
+
+[ext_resource type="Script" uid="uid://csv4kamx2hm02" path="res://scenes/scripts/camera_controller.gd" id="1_nsieu"]
+
+[node name="CameraController" type="Node3D" unique_id=1397977231]
+script = ExtResource("1_nsieu")
+mouse_acceleration = 0.01
+horizontal_acceleration = 2.0
+vertical_acceleration = 1.0
+x_min_limit = -0.8
+x_max_limit = 0.2
+
+[node name="Camera" type="Camera3D" parent="." unique_id=537506683]
+transform = Transform3D(1, 0, 0, 0, 0.9680088, 0.25091618, 0, -0.25091618, 0.9680088, 0, 3.0363822, 5.5815473)
