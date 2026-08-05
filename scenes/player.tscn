@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ba2x71enacli7"]
+
+[ext_resource type="PackedScene" uid="uid://bctcp65yp8t3f" path="res://graphics/characters/godette/godette.glb" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bho2aa2cdokld" path="res://scenes/scripts/player.gd" id="1_g2els"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37okk"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1258630573]
+script = ExtResource("1_g2els")
+speed = 4.0
+
+[node name="Godette" parent="." unique_id=154830651 instance=ExtResource("1_3vyb7")]
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=2005040913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1008301, 0)
+shape = SubResource("CapsuleShape3D_37okk")
