@@ -5,6 +5,7 @@ var direction: Vector2
 
 @export_group("Movement")
 @export var speed: float
+@export_range(0.0, 10.0, 0.1) var rotation_speed: float
 @export var move_acceleration: float
 @export var friction: float
 
@@ -18,6 +19,7 @@ var direction: Vector2
 @onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 @onready var camera = $CameraController/Camera
 @onready var skin = $Skin as Node3D
+@onready var move_state_machine = $AnimationTree.get("parameters/MoveStateMachine/playback") as AnimationNodeStateMachinePlayback
 
 func _physics_process(delta: float) -> void:
 	get_input()
@@ -42,13 +44,20 @@ func get_input() -> void:
 	direction = Input.get_vector("left", "right", "forward", "backward").rotated(-camera.global_rotation.y)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
+	if Input.is_action_just_pressed("ui_cancel"):
+		$AnimationTree.set("parameters/OneShot/request", 
+							AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 func animate(delta) -> void:
-	if direction:
-		skin.rotation.y = rotate_toward(skin.rotation.y, -direction.angle() + PI/2, 6.0 * delta)
+	if is_on_floor():
+		move_state_machine.travel("Run" if direction else "Idle")
+		skin.rotation.y = rotate_toward(skin.rotation.y, -direction.angle() + PI/2, rotation_speed * delta)
+	else:
+		move_state_machine.travel("Jump")
 
 func jump() -> void:
 	velocity.y = jump_strength
+	move_state_machine.travel("Idle")
 	
 func apply_gravity(delta) -> void:
 	if not is_on_floor():

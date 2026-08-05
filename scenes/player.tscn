@@ -6,9 +6,67 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37okk"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tuyoq"]
+animation = &"Hit_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhqgy"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qlg0r"]
+animation = &"Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dqkch"]
+animation = &"Running_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qlg0r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qhqgy"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dqkch"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tuyoq"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjrip"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smehm"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ur7pv"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_smehm"]
+states/Idle/node = SubResource("AnimationNodeAnimation_qhqgy")
+states/Idle/position = Vector2(377.82813, 99.74148)
+states/Jump/node = SubResource("AnimationNodeAnimation_qlg0r")
+states/Jump/position = Vector2(481.41122, 229.54617)
+states/Run/node = SubResource("AnimationNodeAnimation_dqkch")
+states/Run/position = Vector2(575.3991, 100.074)
+states/Start/position = Vector2(201.19673, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_qhqgy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_dqkch"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_fjrip"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_smehm"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_ur7pv")]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_y4r1p"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2gruq"]
+graph_offset = Vector2(-566.5154, 172.98778)
+nodes/MoveStateMachine/node = SubResource("AnimationNodeStateMachine_smehm")
+nodes/MoveStateMachine/position = Vector2(-218.18181, 109.090904)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_y4r1p")
+nodes/OneShot/position = Vector2(72.72727, 145.45454)
+nodes/Attack/node = SubResource("AnimationNodeAnimation_tuyoq")
+nodes/Attack/position = Vector2(-145.45454, 327.2727)
+node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"MoveStateMachine", &"OneShot", 1, &"Attack"]
+
 [node name="Player" type="CharacterBody3D" unique_id=1258630573]
 script = ExtResource("1_g2els")
 speed = 4.0
+rotation_speed = 5.0
 move_acceleration = 4.0
 friction = 8.0
 jump_strength = 15.0
@@ -24,3 +82,13 @@ shape = SubResource("CapsuleShape3D_37okk")
 
 [node name="CameraController" parent="." unique_id=1397977231 instance=ExtResource("3_qhqgy")]
 transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, 1.4, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1179258014]
+root_node = NodePath("../Skin")
+tree_root = SubResource("AnimationNodeBlendTree_2gruq")
+anim_player = NodePath("../Skin/AnimationPlayer")
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
+
+[editable path="Skin"]
