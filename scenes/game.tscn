@@ -20,6 +20,12 @@ size = Vector3(20, 1, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8cj0n"]
 size = Vector3(20, 1, 20)
 
+[sub_resource type="BoxMesh" id="BoxMesh_fo3dt"]
+size = Vector3(15, 8.587952, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
+size = Vector3(15, 8.587952, 1)
+
 [node name="Game" type="Node3D" unique_id=1504967639]
 
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=744173040]
@@ -41,3 +47,13 @@ shape = SubResource("BoxShape3D_8cj0n")
 
 [node name="Player" parent="Characters" unique_id=1258630573 instance=ExtResource("1_uwrxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Wall" type="StaticBody3D" parent="." unique_id=1309473545]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=580103399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7923737, 4.2040324)
+mesh = SubResource("BoxMesh_fo3dt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=1112130245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7923737, 4.2040324)
+shape = SubResource("BoxShape3D_uwrxv")
